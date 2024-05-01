@@ -20,7 +20,10 @@
             height: 200px; /* Added height to center vertically */
         }
         .clock {
-            font-size: 48px;
+            font-size: 6vw; /* Adjust font-size using vw units */
+            line-height: 1; /* Ensure line height is not affecting vertical alignment */
+            white-space: nowrap; /* Prevent text from wrapping */
+            overflow: hidden; /* Hide any overflowing text */
         }
     </style>
 </head>
@@ -55,6 +58,7 @@
     </script>
 </body>
 </html>
+
 
 <!--
     <script src="https://cdn.logwork.com/widget/text.js"></script>
