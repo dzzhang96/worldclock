@@ -49,11 +49,23 @@
         setInterval(updateClocks, 1000);
     </script>
 
-    <a href="https://time.is/San_Francisco" id="time_is_link" rel="nofollow" style="font-size:36px;color:25;background:255">Time in San Francisco:</a>
-    <span id="San_Francisco_z14e" style="font-size:36px;color:25;background:255"></span>
+    UTC time: <span id="UTC_za00"></span><br/>
+    New York sunrise time: <span id="New_York_z161"></span><br/>
+    Tokyo sunrise time: <span id="Tokyo_z444"></span><br/>
+    Find the <a href="https://time.is/" id="time_is_link" rel="nofollow">current time for any location or time zone on Time.is!</a>
     <script src="//widget.time.is/en.js"></script>
     <script>
-    time_is_widget.init({San_Francisco_z14e:{template:"TIME<br>DATE", time_format:"hours:minutes", date_format:"dayname, monthname dnum, year"}});
+    time_is_widget.init({
+    	UTC_za00 : {},
+    	New_York_z161 : {
+    		template: "SUN",
+    		sun_format: "srhour:srminute",
+    		coords: "40.71427,-74.00597"
+    		},
+    	Tokyo_z444 : {
+    		coords: "59.33258,18.06490"
+    		}
+    	});
     </script>
 
     <a href="https://time.is/San_Francisco" id="time_is_link" rel="nofollow" style="font-size:36px;color:25;background:255">Time in San Francisco:</a>
