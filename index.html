@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clocks</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .clock-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .clock {
+            font-size: 48px;
+        }
+    </style>
+</head>
+<body>
+    <h1>World Clocks</h1>
+    <div class="clock-container">
+        <div class="clock" id="clock1"></div>
+        <div class="clock" id="clock2"></div>
+    </div>
+
+    <script>
+        function updateClocks() {
+            const now = new Date();
+            const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+            const utcOffset1 = 5; // Change this to the UTC offset of the first country
+            const utcOffset2 = -8; // Change this to the UTC offset of the second country
+
+            const time1 = new Date(now.getTime() + (utcOffset1 * 3600000)).toLocaleTimeString('en-US', options);
+            const time2 = new Date(now.getTime() + (utcOffset2 * 3600000)).toLocaleTimeString('en-US', options);
+
+            document.getElementById('clock1').textContent = time1;
+            document.getElementById('clock2').textContent = time2;
+        }
+
+        setInterval(updateClocks, 1000);
+    </script>
+</body>
+</html>
