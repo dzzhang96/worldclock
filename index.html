@@ -31,16 +31,16 @@
     <script>
         function updateClocks() {
             const now = new Date();
-            const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
 
-            const utcOffset1 = 5; // Change this to the UTC offset of the first country
-            const utcOffset2 = -8; // Change this to the UTC offset of the second country
+            const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
+            const utcOffset2 = -7; // UTC offset for Foster City (UTC-7)
 
             const time1 = new Date(now.getTime() + (utcOffset1 * 3600000)).toLocaleTimeString('en-US', options);
             const time2 = new Date(now.getTime() + (utcOffset2 * 3600000)).toLocaleTimeString('en-US', options);
 
-            document.getElementById('clock1').textContent = time1;
-            document.getElementById('clock2').textContent = time2;
+            document.getElementById('clock1').textContent = `Shanghai: ${time1}`;
+            document.getElementById('clock2').textContent = `Foster City: ${time2}`;
         }
 
         setInterval(updateClocks, 1000);
