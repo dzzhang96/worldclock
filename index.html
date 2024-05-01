@@ -39,16 +39,24 @@
             const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
             const utcOffset2 = -7; // UTC offset for Foster City (UTC-7)
 
+            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+
+            const date1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleDateString('zh-CN', dateOptions);
+            const date2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleDateString('zh-CN', dateOptions);
+
             const time1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
             const time2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
 
-            document.getElementById('clock1').textContent = `Shanghai: ${time1}`;
-            document.getElementById('clock2').textContent = `Foster City: ${time2}`;
+            document.getElementById('clock1').textContent = `Shanghai: ${date1} ${time1}`;
+            document.getElementById('clock2').textContent = `Foster City: ${date2} ${time2}`;
         }
 
         setInterval(updateClocks, 1000);
     </script>
+</body>
+</html>
 
+<!--
     <script src="https://cdn.logwork.com/widget/text.js"></script>
     <a href="https://logwork.com/current-time-in-san-jose-united-states-illinois" class="clock-widget-text" data-timezone="America/Los_Angeles" data-language="ja" data-textcolor="#ffffff" data-background="#000000">San Jose, United States</a>
     <script src="https://cdn.logwork.com/widget/text.js"></script>
@@ -204,3 +212,4 @@
     
 </body>
 </html>
+-->
