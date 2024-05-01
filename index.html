@@ -13,8 +13,11 @@
         }
         .clock-container {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             margin-top: 50px;
+            height: 200px; /* Added height to center vertically */
         }
         .clock {
             font-size: 48px;
@@ -36,8 +39,8 @@
             const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
             const utcOffset2 = -7; // UTC offset for Foster City (UTC-7)
 
-            const time1 = new Date(now.getTime() + (utcOffset1 * 3600000)).toLocaleTimeString('en-US', options);
-            const time2 = new Date(now.getTime() + (utcOffset2 * 3600000)).toLocaleTimeString('en-US', options);
+            const time1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
+            const time2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
 
             document.getElementById('clock1').textContent = `Shanghai: ${time1}`;
             document.getElementById('clock2').textContent = `Foster City: ${time2}`;
