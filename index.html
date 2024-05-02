@@ -20,22 +20,22 @@
             height: 300px; /* Added height to center vertically */
         }
         .clock {
-            font-size: 8vw; /* Font size for city name, temperature, and date */
+            font-size: 8vw; /* Font size for city name, temperature, date, and time */
             line-height: 1; /* Ensure line height is not affecting vertical alignment */
             white-space: nowrap; /* Prevent text from wrapping */
             overflow: hidden; /* Hide any overflowing text */
-        }
-        .time {
-            font-size: 12vw; /* Larger font size for time */
         }
         .city {
             font-size: 8vw; /* Adjust font size for city name */
             display: inline-block; /* Display city name and temperature on the same line */
         }
-        .date,
         .temperature {
-            text-align: center; /* Center-align the text */
-	    margin-left: 10px;
+            font-size: 8vw; /* Adjust font size for temperature */
+            margin-left: 10px; /* Add margin between city name and temperature */
+        }
+        .date,
+        .time {
+            font-size: 12vw; /* Adjust font size for date and time */
         }
     </style>
 </head>
@@ -97,7 +97,7 @@
         }
 
         updateClocks(); // Initial call to update clocks
-        setInterval(updateClocks, 60000); // Update clocks every minute
+        setInterval(updateClocks, 180000); // Update clocks every minute
     </script>
 	
 	
