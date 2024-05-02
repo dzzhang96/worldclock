@@ -31,13 +31,17 @@
         .temperature {
             font-size: 8vw; /* Adjust font size for temperature */
             margin-left: 10px; /* Add margin between city name and temperature */
+	    color: #F7F9F9;
         }
         .date {
 	    display: block;
+	    color: #F7F9F9;
 	}
         .time {
 	    display: block;
             font-size: 12vw; /* Adjust font size for date and time */
+	    margin-top: 10px;
+	    margin-bottom: 10px;
         }
     </style>
 </head>
@@ -47,14 +51,14 @@
         <div class="clock" id="clock1">
             <span class="city">上海</span>
             <span class="temperature" id="temp1">Loading...</span>
+	    <span class="time"></span>
             <span class="date"></span>
-            <span class="time"></span>
         </div>
         <div class="clock" id="clock2">
             <span class="city">加州</span>
             <span class="temperature" id="temp2">Loading...</span>
+	    <span class="time"></span>
             <span class="date"></span>
-            <span class="time"></span>
         </div>
     </div>
 
