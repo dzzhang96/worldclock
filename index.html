@@ -20,7 +20,7 @@
             height: 200px; /* Added height to center vertically */
         }
         .clock {
-            font-size: 8vw; /* Font size for city name and date */
+            font-size: 8vw; /* Font size for city name, temperature, and date */
             line-height: 1; /* Ensure line height is not affecting vertical alignment */
             white-space: nowrap; /* Prevent text from wrapping */
             overflow: hidden; /* Hide any overflowing text */
@@ -29,8 +29,9 @@
             font-size: 12vw; /* Larger font size for time */
         }
         .city,
-        .date {
-            display: block; /* Display city name and date on separate lines */
+        .date,
+        .temperature {
+            display: block; /* Display city name, temperature, and date on separate lines */
             text-align: center; /* Center-align the text */
         }
     </style>
@@ -40,18 +41,32 @@
     <div class="clock-container">
         <div class="clock" id="clock1">
             <span class="city">Shanghai</span>
+            <span class="temperature" id="temp1">Loading...</span>
             <span class="date"></span>
             <span class="time"></span>
         </div>
         <div class="clock" id="clock2">
             <span class="city">Foster City</span>
+            <span class="temperature" id="temp2">Loading...</span>
             <span class="date"></span>
             <span class="time"></span>
         </div>
     </div>
 
     <script>
-        function updateClocks() {
+        async function getTemperature(city) {
+            try {
+                const apiKey = 'c712d80c8d00d8368ea91407e087de2a'; // Replace with your actual API key
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+                const data = await response.json();
+                return data.main.temp;
+            } catch (error) {
+                console.error('Error fetching temperature data:', error);
+                return 'N/A';
+            }
+        }
+
+        async function updateClocks() {
             const now = new Date();
             const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
 
@@ -66,22 +81,27 @@
             const time1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
             const time2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
 
+            const temp1 = await getTemperature('Shanghai,cn');
+            const temp2 = await getTemperature('Fostercity,us');
+
+            document.getElementById('temp1').textContent = `${temp1}°C`;
+            document.getElementById('temp2').textContent = `${temp2}°C`;
+
             document.getElementById('clock1').querySelector('.date').textContent = date1;
             document.getElementById('clock1').querySelector('.time').textContent = time1;
             document.getElementById('clock2').querySelector('.date').textContent = date2;
             document.getElementById('clock2').querySelector('.time').textContent = time2;
         }
 
-        setInterval(updateClocks, 1000);
+        updateClocks(); // Initial call to update clocks
+        setInterval(updateClocks, 60000); // Update clocks every minute
     </script>
-
-
 	
 	
     <script src="https://cdn.logwork.com/widget/text.js"></script>
-    <a href="https://logwork.com/current-time-in-shanghai-china" class="clock-widget-text" data-timezone="Asia/Shanghai" data-language="ja" data-textcolor="#ffffff" data-background="#000000" data-digitscolor="#ffffff">Shanghai, China, Shanghai</a>
+    <a href="https://logwork.com/current-time-in-shanghai-china" class="clock-widget-text" data-timezone="Asia/Shanghai" data-language="ja" data-textcolor="#ffffff" data-background="#000000" data-digitscolor="#ffffff">上海</a>
     <script src="https://cdn.logwork.com/widget/text.js"></script>
-    <a href="https://logwork.com/current-time-in-foster-city-united-states-california" class="clock-widget-text" data-timezone="America/Los_Angeles" data-language="ja" data-textcolor="#ffffff" data-background="#000000" data-digitscolor="#ffffff">Foster City, United States, California</a>
+    <a href="https://logwork.com/current-time-in-foster-city-united-states-california" class="clock-widget-text" data-timezone="America/Los_Angeles" data-language="ja" data-textcolor="#ffffff" data-background="#000000" data-digitscolor="#ffffff">加州</a>
     
 </body>
 </html>
