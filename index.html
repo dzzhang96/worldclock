@@ -40,12 +40,14 @@
     <h1>World Clocks</h1>
     <div class="clock-container">
         <div class="clock" id="clock1">
-            <span class="city" id="city1">上海</span>
+            <span class="city">上海</span>
+            <span class="temperature" id="temp1">Loading...</span>
             <span class="date"></span>
             <span class="time"></span>
         </div>
         <div class="clock" id="clock2">
-            <span class="city" id="city2">加州</span>
+            <span class="city">加州</span>
+            <span class="temperature" id="temp2">Loading...</span>
             <span class="date"></span>
             <span class="time"></span>
         </div>
@@ -80,7 +82,7 @@
             const time2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
 
             const temp1 = await getTemperature('Shanghai,cn');
-            const temp2 = await getTemperature('Fostercity,us');
+            const temp2 = await getTemperature('Foster City,us');
 
             document.getElementById('temp1').textContent = `${temp1}°C`;
             document.getElementById('temp2').textContent = `${temp2}°C`;
