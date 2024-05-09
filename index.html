@@ -99,8 +99,21 @@
             const temp1 = await getTemperature('Shanghai,cn');
             const temp2 = await getTemperature('Foster City,us');
 
-            document.getElementById('temp1').textContent = `${temp1}°C`;
-            document.getElementById('temp2').textContent = `${temp2}°C`;
+            try {
+                const temp1 = await getTemperature('Shanghai');
+                document.getElementById('temp1').textContent = `${temp1}°C`;
+            } catch (error) {
+                console.error('Error fetching temperature for Shanghai:', error);
+                document.getElementById('temp1').textContent = ' ';
+            }
+
+            try {
+                const temp2 = await getTemperature('Foster City');
+                document.getElementById('temp2').textContent = `${temp2}°C`;
+            } catch (error) {
+                console.error('Error fetching temperature for Foster City:', error);
+                document.getElementById('temp2').textContent = ' ';
+            }
 
             document.getElementById('clock1').querySelector('.date').textContent = date1;
             // document.getElementById('clock1').querySelector('.time').textContent = time1;
