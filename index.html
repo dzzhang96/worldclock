@@ -55,13 +55,15 @@
         <div class="clock" id="clock1">
             <span class="city">上海</span>
             <span class="temperature" id="temp1">Loading...</span>
-	    <span class="time"></span>
+	        <!-- <span class="time"></span> -->
+            <span class="time" id="time1"></span>
             <span class="date"></span>
         </div>
         <div class="clock" id="clock2">
             <span class="city">美国</span>
             <span class="temperature" id="temp2">Loading...</span>
-	    <span class="time"></span>
+	        <!-- <span class="time"></span> -->
+            <span class="time" id="time2"></span>
             <span class="date"></span>
         </div>
     </div>
@@ -101,9 +103,11 @@
             document.getElementById('temp2').textContent = `${temp2}°C`;
 
             document.getElementById('clock1').querySelector('.date').textContent = date1;
-            document.getElementById('clock1').querySelector('.time').textContent = time1;
+            // document.getElementById('clock1').querySelector('.time').textContent = time1;
+            document.getElementById('time1').textContent = time1;
             document.getElementById('clock2').querySelector('.date').textContent = date2;
-            document.getElementById('clock2').querySelector('.time').textContent = time2;
+            // document.getElementById('clock2').querySelector('.time').textContent = time2;
+            document.getElementById('time2').textContent = time2;
         }
 
         updateClocks(); // Initial call to update clocks
