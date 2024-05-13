@@ -55,15 +55,13 @@
         <div class="clock" id="clock1">
             <span class="city">上海</span>
             <span class="temperature" id="temp1">Loading...</span>
-	        <!-- <span class="time"></span> -->
-            <span class="time" id="time1"></span>
+	    <span class="time"></span>
             <span class="date"></span>
         </div>
         <div class="clock" id="clock2">
             <span class="city">美国</span>
             <span class="temperature" id="temp2">Loading...</span>
-	        <!-- <span class="time"></span> -->
-            <span class="time" id="time2"></span>
+	    <span class="time"></span>
             <span class="date"></span>
         </div>
     </div>
@@ -99,28 +97,13 @@
             const temp1 = await getTemperature('Shanghai,cn');
             const temp2 = await getTemperature('Foster City,us');
 
-            try {
-                const temp1 = await getTemperature('Shanghai');
-                document.getElementById('temp1').textContent = `${temp1}°C`;
-            } catch (error) {
-                console.error('Error fetching temperature for Shanghai:', error);
-                document.getElementById('temp1').textContent = ' ';
-            }
-
-            try {
-                const temp2 = await getTemperature('Foster City');
-                document.getElementById('temp2').textContent = `${temp2}°C`;
-            } catch (error) {
-                console.error('Error fetching temperature for Foster City:', error);
-                document.getElementById('temp2').textContent = ' ';
-            }
+            document.getElementById('temp1').textContent = `${temp1}°C`;
+            document.getElementById('temp2').textContent = `${temp2}°C`;
 
             document.getElementById('clock1').querySelector('.date').textContent = date1;
-            // document.getElementById('clock1').querySelector('.time').textContent = time1;
-            document.getElementById('time1').textContent = time1;
+            document.getElementById('clock1').querySelector('.time').textContent = time1;
             document.getElementById('clock2').querySelector('.date').textContent = date2;
-            // document.getElementById('clock2').querySelector('.time').textContent = time2;
-            document.getElementById('time2').textContent = time2;
+            document.getElementById('clock2').querySelector('.time').textContent = time2;
         }
 
         updateClocks(); // Initial call to update clocks
