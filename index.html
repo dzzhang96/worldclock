@@ -86,12 +86,26 @@
             document.getElementById('temp2').textContent = `${temp2}°C`;
         }
 
+        function isDST(date) {
+            const year = date.getUTCFullYear();
+            const march = new Date(year, 2, 1);
+            const november = new Date(year, 10, 1);
+
+            // Second Sunday in March
+            const secondSundayInMarch = new Date(march.setDate(1 + ((7 - march.getDay()) % 7) + 7));
+            // First Sunday in November
+            const firstSundayInNovember = new Date(november.setDate(1 + ((7 - november.getDay()) % 7)));
+
+            return date >= secondSundayInMarch && date < firstSundayInNovember;
+        }
+
         async function updateTime() {
             const now = new Date();
             const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
 
             const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
-            const utcOffset2 = now.getUTCMonth() >= 1 && now.getUTCMonth() <= 9 ? -7 : -8; // UTC offset for Foster City
+            // const utcOffset2 = now.getUTCMonth() >= 1 && now.getUTCMonth() <= 9 ? -7 : -8; // UTC offset for Foster City
+            const utcOffset2 = isDST(now) ? -7 : -8; // UTC offset for Foster City
 
             const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
 
