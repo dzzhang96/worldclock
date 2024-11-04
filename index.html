@@ -86,24 +86,31 @@
             document.getElementById('temp2').textContent = `${temp2}°C`;
         }
 
+        function formatTime(hours, minutes) {
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            return `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${ampm}`;
+        }
+
         function updateTime() {
             const now = new Date();
-            const timeOptions = { hour12: true, hour: '2-digit', minute: '2-digit' };
-            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
 
-            // Shanghai (no DST)
-            const shanghaiTime = now.toLocaleTimeString('en-US', { ...timeOptions, timeZone: 'Asia/Shanghai' });
-            const shanghaiDate = now.toLocaleDateString('zh-CN', { ...dateOptions, timeZone: 'Asia/Shanghai' });
+            // Shanghai (UTC+8, no DST)
+            const shanghaiOffset = 8;
+            const shanghaiDate = new Date(now.getTime() + (shanghaiOffset * 60 + now.getTimezoneOffset()) * 60000);
+            document.getElementById('time1').textContent = formatTime(shanghaiDate.getHours(), shanghaiDate.getMinutes());
+            document.getElementById('date1').textContent = shanghaiDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
 
-            // Foster City (DST applied automatically)
-            const fosterCityTime = now.toLocaleTimeString('en-US', { ...timeOptions, timeZone: 'America/Los_Angeles' });
-            const fosterCityDate = now.toLocaleDateString('zh-CN', { ...dateOptions, timeZone: 'America/Los_Angeles' });
+            // Foster City (UTC-8 or UTC-7 with DST)
+            const dstOffset = now.getMonth() >= 2 && now.getMonth() <= 10 ? -7 : -8;
+            const fosterCityDate = new Date(now.getTime() + (dstOffset * 60 + now.getTimezoneOffset()) * 60000);
+            document.getElementById('time2').textContent = formatTime(fosterCityDate.getHours(), fosterCityDate.getMinutes());
+            document.getElementById('date2').textContent = fosterCityDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+        }
 
-            // Update HTML content
-            document.getElementById('time1').textContent = shanghaiTime;
-            document.getElementById('date1').textContent = shanghaiDate;
-            document.getElementById('time2').textContent = fosterCityTime;
-            document.getElementById('date2').textContent = fosterCityDate;
+        function updateClocks() {
+            updateTemperature();
+            updateTime();
         }
 
         function updateClocks() {
