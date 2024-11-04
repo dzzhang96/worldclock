@@ -86,33 +86,27 @@
             document.getElementById('temp2').textContent = `${temp2}°C`;
         }
 
-        function formatTime(hours, minutes) {
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-            return `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${ampm}`;
-        }
-
         async function updateTime() {
             const now = new Date();
+            const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
 
-            // Shanghai (UTC+8, no DST)
-            const shanghaiOffset = 8;
-            const shanghaiDate = new Date(now.getTime() + (shanghaiOffset * 60 + now.getTimezoneOffset()) * 60000);
-            document.getElementById('time1').textContent = formatTime(shanghaiDate.getHours(), shanghaiDate.getMinutes());
-            document.getElementById('date1').textContent = shanghaiDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
+            const utcOffset2 = now.getMonth() >= 2 && now.getMonth() <= 10 ? -7 : -8; // UTC offset for Foster City (UTC-7)
 
-            // Foster City (UTC-8 or UTC-7 with DST)
-            const dstOffset = now.getMonth() >= 2 && now.getMonth() <= 10 ? -7 : -8;
-            const fosterCityDate = new Date(now.getTime() + (dstOffset * 60 + now.getTimezoneOffset()) * 60000);
-            document.getElementById('time2').textContent = formatTime(fosterCityDate.getHours(), fosterCityDate.getMinutes());
-            document.getElementById('date2').textContent = fosterCityDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+
+            const date1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleDateString('zh-CN', dateOptions);
+            const date2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleDateString('zh-CN', dateOptions);
+
+            const time1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
+            const time2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
+
+            document.getElementById('clock1').querySelector('.date').textContent = date1;
+            document.getElementById('clock1').querySelector('.time').textContent = time1;
+            document.getElementById('clock2').querySelector('.date').textContent = date2;
+            document.getElementById('clock2').querySelector('.time').textContent = time2;
         }
-
-        function updateClocks() {
-            updateTemperature();
-            updateTime();
-        }
-
+        
         function updateClocks() {
             updateTemperature();
             updateTime();
