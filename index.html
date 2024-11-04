@@ -92,7 +92,7 @@
             return `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${ampm}`;
         }
 
-        function updateTime() {
+        async function updateTime() {
             const now = new Date();
 
             // Shanghai (UTC+8, no DST)
