@@ -86,25 +86,24 @@
             document.getElementById('temp2').textContent = `${temp2}°C`;
         }
 
-        async function updateTime() {
+        function updateTime() {
             const now = new Date();
-            const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
-
-            const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
-            const utcOffset2 = -7; // UTC offset for Foster City (UTC-7)
-
+            const timeOptions = { hour12: true, hour: '2-digit', minute: '2-digit' };
             const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
 
-            const date1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleDateString('zh-CN', dateOptions);
-            const date2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleDateString('zh-CN', dateOptions);
+            // Shanghai (no DST)
+            const shanghaiTime = now.toLocaleTimeString('en-US', { ...timeOptions, timeZone: 'Asia/Shanghai' });
+            const shanghaiDate = now.toLocaleDateString('zh-CN', { ...dateOptions, timeZone: 'Asia/Shanghai' });
 
-            const time1 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset1, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
-            const time2 = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + utcOffset2, now.getUTCMinutes(), now.getUTCSeconds()).toLocaleTimeString('en-US', options);
+            // Foster City (DST applied automatically)
+            const fosterCityTime = now.toLocaleTimeString('en-US', { ...timeOptions, timeZone: 'America/Los_Angeles' });
+            const fosterCityDate = now.toLocaleDateString('zh-CN', { ...dateOptions, timeZone: 'America/Los_Angeles' });
 
-            document.getElementById('clock1').querySelector('.date').textContent = date1;
-            document.getElementById('clock1').querySelector('.time').textContent = time1;
-            document.getElementById('clock2').querySelector('.date').textContent = date2;
-            document.getElementById('clock2').querySelector('.time').textContent = time2;
+            // Update HTML content
+            document.getElementById('time1').textContent = shanghaiTime;
+            document.getElementById('date1').textContent = shanghaiDate;
+            document.getElementById('time2').textContent = fosterCityTime;
+            document.getElementById('date2').textContent = fosterCityDate;
         }
 
         function updateClocks() {
