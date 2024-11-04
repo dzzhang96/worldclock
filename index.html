@@ -91,7 +91,7 @@
             const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
 
             const utcOffset1 = 8; // UTC offset for Shanghai (UTC+8)
-            const utcOffset2 = now.getMonth() >= 2 && now.getMonth() <= 10 ? -7 : -8; // UTC offset for Foster City (UTC-7)
+            const utcOffset2 = (now.getMonth() >= 2 && now.getMonth() <= 10) ? -7 : -8; // UTC offset for Foster City (UTC-7)
 
             const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
 
